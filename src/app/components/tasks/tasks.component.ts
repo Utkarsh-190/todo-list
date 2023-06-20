@@ -18,4 +18,21 @@ export class TasksComponent {
       this.tasks = tasks;
     });
   }
+
+  deleteThisTask(task: Task) {
+    this.taskService.deleteTaskFromService(task).subscribe(() => {
+      this.tasks = this.tasks.filter(curTask => curTask.id !== task.id)
+    });
+  }
+
+  toggleReminder(task: Task) {
+    task.reminder = !task.reminder;
+    this.taskService.updateTaskReminder(task).subscribe();
+  }
+
+  addTask(task: Task) {
+    this.taskService.addTask(task).subscribe((task) => {
+      this.tasks.push(task);
+    })
+  }
 }
